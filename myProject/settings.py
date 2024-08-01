@@ -20,13 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv()
 
-# MongoDB connection
-MongodbConnectionString = os.getenv('connection_string')
-DBname = os.getenv('database_name')
-
-client = MongoClient(MongodbConnectionString)
-db = client[DBname]
-
 # CLOUDINARY_STORAGE = {
 #     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
 #     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
@@ -94,12 +87,12 @@ WSGI_APPLICATION = 'myProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+# MongoDB connection
+MongodbConnectionString = os.getenv('connection_string')
+DBname = os.getenv('database_name')
+
+client = MongoClient(MongodbConnectionString)
+db = client[DBname]
 
 
 # Password validation
