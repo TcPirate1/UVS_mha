@@ -26,6 +26,10 @@ load_dotenv()
 #     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 # }
 
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "23novalty048@gmail.com"
+NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -132,7 +136,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "mha_website", "static"),
 ]
 
 # Default primary key field type
