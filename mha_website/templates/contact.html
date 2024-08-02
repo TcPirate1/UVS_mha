@@ -3,6 +3,14 @@
 <div class="container mt-5">
 <h1>Contact Us</h1>
 <form method="post">
+    <script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_PUBLIC_KEY }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ RECAPTCHA_PUBLIC_KEY }}', {action: 'contact'}).then(function(token) {
+                document.getElementById('id_captcha').value = token;
+            });
+        });
+    </script>
   {% csrf_token %}
   {{ form }}
   <div class="form-actions">

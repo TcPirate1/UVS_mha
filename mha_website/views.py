@@ -6,9 +6,9 @@ from django.contrib.auth import login
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from .forms import *
-from django.shortcuts import reverse
 from django.conf import settings
 from django.core.mail import send_mail
+import requests
 
 # Create your views here.
 class homeView(TemplateView):
@@ -40,31 +40,42 @@ class CustomLogoutView(auth_views.LogoutView):
     next_page = '/'
 
 # Contact page
-class SuccessView(TemplateView):
-    template_name = 'success.html'
-
 class ContactView(FormView):
     form_class = ContactForm
     template_name = 'contact.html'
 
-    def get_success_url(self):
-        return reverse('contact')
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
 
-    def form_valid(self, form):
-        email = form.cleaned_data.get('email')
-        subject = form.cleaned_data.get('subject')
-        message = form.cleaned_data.get('message')
+    def post(self, request):
+        form = self.form_class(request.POST)
+        
+        if form.is_valid():
+            recaptcha_response = request.POST.get('recaptcha_response')
+            data = {
+                'secret': settings.RECAPTCHA_PRIVATE_KEY,
+                'response': recaptcha_response
+            }
+            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+            result = r.json()
 
-        full_message = f"""
-            Recieved message below from {email}, {subject}
-            --------------------
-            {message}
-            """
+            if result['success'] and result['score'] >= 0.5:
+                email = form.cleaned_data['email']
+                subject = form.cleaned_data['subject']
+                message = form.cleaned_data['message']
+
+                send_mail(
+                    subject,
+                    message,
+                    email,
+                    from_email = settings.DEFAULT_FROM_EMAIL,
+                    recipient_list= settings.NOTIFY_EMAIL
+                )
+                messages.success(request, 'Your message has been sent successfully!')
+                return redirect('contact')
+
+            else:
+                messages.error(request, 'Our form seems to think you are a robot, if you are not please try again!')
             
-        send_mail(
-            subject='Recieved contact form submission',
-            message=full_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.NOTIFY_EMAIL],
-            )
-        return super(ContactView, self).form_valid(form)
+        return render(request, self.template_name, {'form': form})

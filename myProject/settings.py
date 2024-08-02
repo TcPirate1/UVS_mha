@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'mha_website',
     'cloudinary',
     'cloudinary_storage',
+    'django_recaptcha'
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
 # Configure this later
+
+# Recaptcha
+RECAPTCHA_PUBLIC_KEY = os.getenv('public_key')
+RECAPTCHA_PRIVATE_KEY = os.getenv('private_key')
