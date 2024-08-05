@@ -46,19 +46,25 @@ class ContactView(FormView):
 
     def get(self, request):
         form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+        context = {
+            'form': form,
+            'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         form = self.form_class(request.POST)
         
         if form.is_valid():
-            recaptcha_response = request.POST.get('recaptcha_response')
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            print(f"Received reCAPTCHA response: {recaptcha_response}")  # Debugging line
             data = {
                 'secret': settings.RECAPTCHA_PRIVATE_KEY,
                 'response': recaptcha_response
             }
             r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
             result = r.json()
+            print(f"reCAPTCHA verification result: {result}")  # Debugging line
 
             if result['success'] and result['score'] >= 0.5:
                 email = form.cleaned_data['email']
@@ -69,13 +75,16 @@ class ContactView(FormView):
                     subject,
                     message,
                     email,
-                    from_email = settings.DEFAULT_FROM_EMAIL,
-                    recipient_list= settings.NOTIFY_EMAIL
+                    recipient_list= [settings.NOTIFY_EMAIL]
                 )
                 messages.success(request, 'Your message has been sent successfully!')
                 return redirect('contact')
 
             else:
                 messages.error(request, 'Our form seems to think you are a robot, if you are not please try again!')
-            
-        return render(request, self.template_name, {'form': form})
+
+        context = {
+            'form': form,
+            'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
+        }    
+        return render(request, self.template_name, context)
