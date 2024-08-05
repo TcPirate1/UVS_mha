@@ -31,11 +31,12 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # SendGrid
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+MAILJET_API_KEY = os.getenv('MAILJET_API_KEY')
+MAILJET_SECRET_KEY = os.getenv('MAILJET_SECRET_KEY')
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_USER = MAILJET_API_KEY
+EMAIL_HOST_PASSWORD = MAILJET_SECRET_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
