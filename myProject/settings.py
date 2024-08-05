@@ -28,7 +28,6 @@ load_dotenv()
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = "23novalty048@gmail.com"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # Quick-start development settings - unsuitable for production
