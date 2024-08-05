@@ -27,7 +27,7 @@ load_dotenv()
 # }
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # SendGrid
