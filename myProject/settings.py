@@ -30,6 +30,15 @@ load_dotenv()
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
+# SendGrid
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
