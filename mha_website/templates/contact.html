@@ -5,7 +5,7 @@
 <form method="post" id="contact-form">
   {% csrf_token %}
   {{ form }}
-  <input type="hidden" id="id_captcha" name="g-recaptcha-response"></input>
+  <input class="invisible" id="id_captcha" name="g-recaptcha-response"></input>
   <div class="form-actions">
     <button type="submit">Send</button>
   </div>

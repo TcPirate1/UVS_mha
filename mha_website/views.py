@@ -88,3 +88,6 @@ class ContactView(FormView):
             'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
         }    
         return render(request, self.template_name, context)
+
+class aboutView(TemplateView):
+    template_name = "about.html"
