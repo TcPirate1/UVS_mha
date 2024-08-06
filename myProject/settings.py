@@ -27,7 +27,7 @@ load_dotenv()
 # }
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # SendGrid
@@ -154,9 +154,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGIN_REDIRECT_URL = 'home'
-# LOGOUT_REDIRECT_URL = 'home'
-# Configure this later
+# Sign up, login, logout settings
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
 
 # Recaptcha
 RECAPTCHA_PUBLIC_KEY = os.getenv('public_key')
