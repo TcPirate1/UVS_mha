@@ -24,7 +24,7 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mx-auto" href="#">
+        <a class="navbar-brand mx-auto" href="{% url 'home' %}">
           <img
             src="{% static 'images/All_Might_Image.png' %}"
             alt="Logo"
@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Card database</a>
@@ -54,7 +54,10 @@
               <a class="nav-link" href="#">Deck Maker</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -92,5 +95,14 @@
     </header>
     {% block content %}{% endblock content %}
   </body>
-  <footer>{% comment %} {% url 'about' %} {% endcomment %}</footer>
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="{% url 'home' %}" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Privacy Policy</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+      <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">About</a></li>
+    </ul>
+    <p class="text-center text-muted">&copy; <script>document.write(new Date().getFullYear())</script> Company, Inc</p>
+  
+  </footer>
 </html>

@@ -26,6 +26,19 @@ load_dotenv()
 #     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 # }
 
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
+
+# SendGrid
+MAILJET_API_KEY = os.getenv('MAILJET_API_KEY')
+MAILJET_SECRET_KEY = os.getenv('MAILJET_SECRET_KEY')
+
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_USER = MAILJET_API_KEY
+EMAIL_HOST_PASSWORD = MAILJET_SECRET_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -51,6 +64,7 @@ INSTALLED_APPS = [
     'mha_website',
     'cloudinary',
     'cloudinary_storage',
+    'django_recaptcha'
 ]
 
 MIDDLEWARE = [
@@ -132,7 +146,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "mha_website", "static"),
 ]
 
 # Default primary key field type
@@ -143,3 +157,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
 # Configure this later
+
+# Recaptcha
+RECAPTCHA_PUBLIC_KEY = os.getenv('public_key')
+RECAPTCHA_PRIVATE_KEY = os.getenv('private_key')

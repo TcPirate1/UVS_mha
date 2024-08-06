@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+<h1>Contact Us</h1>
+<form method="post" id="contact-form">
+  {% csrf_token %}
+  {{ form }}
+  <input class="invisible" id="id_captcha" name="g-recaptcha-response"></input>
+  <div class="form-actions">
+    <button type="submit">Send</button>
+  </div>
+</form>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{RECAPTCHA_PUBLIC_KEY}}"></script>
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', function(event){
+        event.preventDefault();
+        grecaptcha.ready(function() {
+          grecaptcha.execute('{{RECAPTCHA_PUBLIC_KEY}}', {action: 'contact'}).then(function(token) {
+              document.getElementById('id_captcha').value = token;
+              event.target.submit();
+          });
+      });
+      });
+    </script>
+{% endblock content %}
