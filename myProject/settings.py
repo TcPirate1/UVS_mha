@@ -27,7 +27,7 @@ load_dotenv()
 # }
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 NOTIFY_EMAIL = "dche211@mywhitecliffe.com"
 
 # SendGrid
@@ -101,6 +101,13 @@ WSGI_APPLICATION = 'myProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 # MongoDB connection
 MongodbConnectionString = os.getenv('connection_string')
 DBname = os.getenv('database_name')
@@ -145,18 +152,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "mha_website", "static"),
-]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGIN_REDIRECT_URL = 'home'
-# LOGOUT_REDIRECT_URL = 'home'
-# Configure this later
+# Sign up, login, logout settings
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
 
 # Recaptcha
 RECAPTCHA_PUBLIC_KEY = os.getenv('public_key')

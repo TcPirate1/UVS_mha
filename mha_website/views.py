@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from .forms import *
@@ -37,7 +37,10 @@ class CustomLoginView(auth_views.LoginView):
     template_name = 'registration/login.html'
 
 class CustomLogoutView(auth_views.LogoutView):
-    next_page = '/'
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        messages.success(request, "You have successfully logged out.")
+        return redirect("home")
 
 # Contact page
 class ContactView(FormView):
