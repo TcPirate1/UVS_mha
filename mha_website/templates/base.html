@@ -29,6 +29,7 @@
             src="{% static 'images/All_Might_Image.png' %}"
             alt="Logo"
             style="height: 50px"
+            class="ms-3 me-3"
           />
         </a>
         <button
@@ -45,9 +46,6 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Home</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Card database</a>
             </li>
             <li class="nav-item">
@@ -60,14 +58,14 @@
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
           </ul>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item d-lg-none">
               <a class="nav-link" href="{% url 'login' %}"
                 ><i class="fa fa-lock"></i
               ></a>
             </li>
             {% if user.is_authenticated %}
-            <li class="nav-item d-none d-lg-block">
+            <li class="nav-item d-none d-lg-block me-3">
               <a class="btn btn-outline-light" href="{% url 'logout' %}"
                 >Logout</a
               >
@@ -78,12 +76,12 @@
               ></a>
             </li>
             {% else %}
-            <li class="nav-item d-none d-lg-block">
+            <li class="nav-item d-none d-lg-block me-3">
               <a class="btn btn-outline-light" href="{% url 'login' %}"
                 >Login</a
               >
             </li>
-            <li class="nav-item d-none d-lg-block">
+            <li class="nav-item d-none d-lg-block me-3">
               <a class="btn btn-outline-light" href="{% url 'signup' %}"
                 >Sign Up</a
               >
