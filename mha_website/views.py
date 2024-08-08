@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
@@ -16,7 +15,7 @@ class homeView(TemplateView):
 
 # Signup/Login page
 class registerView(View):
-    form_class = UserCreationForm
+    form_class = CustomSignUpForm
     template_name = "registration/signup.html"
 
     def get(self, request):
