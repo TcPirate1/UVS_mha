@@ -9,9 +9,17 @@ from django.conf import settings
 from django.core.mail import send_mail
 import requests
 
-# Create your views here.
+# Template view pages
 class homeView(TemplateView):
     template_name = "home.html"
+
+class privacyView(TemplateView):
+    template_name = "privacy_policy.html"
+
+class faqView(TemplateView):
+    template_name = "faq.html"
+class aboutView(TemplateView):
+    template_name = "about.html"
 
 # Signup/Login page
 class registerView(View):
@@ -90,6 +98,3 @@ class ContactView(FormView):
             'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
         }    
         return render(request, self.template_name, context)
-
-class aboutView(TemplateView):
-    template_name = "about.html"
