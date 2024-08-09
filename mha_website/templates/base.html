@@ -25,6 +25,17 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand mx-auto" href="{% url 'home' %}">
           <img
             src="{% static 'images/All_Might_Image.png' %}"
@@ -33,42 +44,40 @@
             class="ms-3 me-3"
           />
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+          <ul class="navbar-nav">
+            <li class="nav-item mx-auto">
               <a class="nav-link" href="#">Card database</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-auto">
               <a class="nav-link" href="#">Deck Maker</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-auto">
               <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-auto">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
           </ul>
-          <ul class="navbar-nav ms-auto">
+        </div>
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item d-lg-none">
-              <a class="nav-link" href="{% url 'login' %}"
-                ><i class="fa fa-lock"></i
-              ></a>
+              <a class="nav-link" href="{% url 'login' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+              </svg></a>
+              <a class="nav-link m-0 p-0" href="{% url 'signup' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+              </svg>
+            </a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item d-none d-lg-block me-3">
-              <a class="btn btn-outline-light" href="{% url 'logout' %}"
-                >Logout</a
+              <a class="btn btn-outline-light" href="{% url 'logout' %}">
+              Logout</a
               >
             </li>
             <li class="nav-item d-lg-none">
@@ -89,7 +98,6 @@
             </li>
           </ul>
           {% endif %}
-        </div>
       </nav>
     </header>
     <div class="container mt-3">
