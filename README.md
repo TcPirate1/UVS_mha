@@ -12,3 +12,4 @@ Site for the card game UVS (MHA). The aim is to have a site where we can search 
 
 # Notes
 - Use `code --enable-proposed-api ms-python.python` if using Microsoft Python extension on Code OSS build. Otherwise just `code .` is fine.
+- [UVS mha set list](https://uvsgames.com/universus/my-hero-academia)

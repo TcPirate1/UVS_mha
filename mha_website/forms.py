@@ -42,3 +42,156 @@ class CustomLoginForm(forms.Form):
         label="Password",
         widget=forms.PasswordInput(attrs={"placeholder": "Password", "class": "form-control"})
     )
+
+class CustomCardSearchForm(forms.Form):
+    name = forms.CharField(
+        label="Card Name",
+        widget=forms.TextInput(attrs={"placeholder": "Card Name", "class": "form-control"})
+    )
+    rarityChoices = [
+        ("Common", "Common"),
+        ("Uncommon", "Uncommon"),
+        ("Rare", "Rare"),
+        ("SE", "SE"),
+        ("Super Rare", "Super Rare"),
+        ("Ultra Rare", "Ultra Rare"),
+        ]
+    
+    rarity = forms.MultipleChoiceField(
+        label="Rarity",
+        choices=rarityChoices,
+        widget=forms.MultipleChoiceField(attrs={"class": "form-check-input"})
+    )
+
+    setChoices = [
+        ("Base Set", "Base Set"),
+        ("Promo Set", "Promo Set"),
+        ("Expansion Set", "Expansion Set"),
+        ("Starter Set", "Starter Set"),
+        ("Booster Set", "Booster Set"),
+        ("Special Edition Set", "Special Edition Set"),
+        ("Crimson Rampage", "Crimson Rampage"),
+        ("Heroes Clash", "Heroes Clash"),
+        ("League of Villans", "League of Villans"),
+        ("Undaunted Raid", "Undaunted Raid"),
+        ("Jet Burn", "Jet Burn"),
+        ("Girl Power", "Girl Power"),
+        ("DLC", "DLC"),
+        ("Other", "Other"),
+        ]
+    
+    set = forms.ChoiceField(
+        label="Set",
+        choices=setChoices,
+        widget=forms.Select(attrs={"class": "form-select"})
+    )
+
+    cardTypeChoices = [
+        ("Character", "Character"),
+        ("Action", "Action"),
+        ("Asset", "Asset"),
+        ("Attack", "Attack"),
+        ("Foundation", "Foundation"),
+        ("Backup", "Backup"),
+    ]
+
+    cardType = forms.MultipleChoiceField(
+        label="Card Type",
+        choices=cardTypeChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    symbolChoices = [
+        ("All", "All"),
+        ("Air", "Air"),
+        ("Earth", "Earth"),
+        ("Fire", "Fire"),
+        ("Life", "Life"),
+        ("Death", "Death"),
+        ("Good", "Good"),
+        ("Evil", "Evil"),
+        ("Order", "Order"),
+        ("Chaos", "Chaos"),
+        ("Infinity", "Infinity"),
+        ]
+    
+    symbol = forms.MultipleChoiceField(
+        label="Symbol",
+        choices=symbolChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    keywordChoices = [
+        ("All", "All"),
+        ("Combo", "Combo"),
+        ("Enhance", "Enhance"),
+        ("Guard", "Guard"),
+        ("Power Up", "Power Up"),
+        ("Stun", "Stun"),
+        ("Throw", "Throw"),
+        ("Unique", "Unique"),
+        ]
+    
+    keywords = forms.MultipleChoiceField(
+        label="Keywords",
+        choices=keywordChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+    controlChoice = [
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+    ]
+
+    control = forms.MultipleChoiceField(
+        label="Control",
+        choices=controlChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    difficulty = forms.IntegerField(
+        label="Difficulty",
+        widget=forms.NumberInput(attrs={"placeholder": "Difficulty", "class": "form-control"})
+    )
+
+    blockZoneChoice = [
+        ("High", "High"),
+        ("Mid", "Mid"),
+        ("Low", "Low"),
+        # Reused for Attack Zone
+    ]
+
+    blockZone = forms.MultipleChoiceField(
+        label="Block Zone",
+        choices=blockZoneChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    blockModifier = forms.IntegerField(
+        label="Block Modifier",
+        widget=forms.NumberInput(attrs={"placeholder": "Block Modifier", "class": "form-control"})
+    )
+
+    attackZone = forms.MultipleChoiceField(
+        label="Attack Zone",
+        choices=blockZoneChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    speed = forms.IntegerField(
+        label="Speed",
+        widget=forms.NumberInput(attrs={"placeholder": "Speed", "class": "form-control"})
+    )
+
+    damage = forms.IntegerField(
+        label="Damage",
+        widget=forms.NumberInput(attrs={"placeholder": "Damage", "class": "form-control"})
+    )
+
+    cardText = forms.CharField(
+        label="Card Text",
+        widget=forms.TextInput(attrs={"placeholder": "Card Text", "class": "form-control"})
+    )

@@ -117,3 +117,28 @@ class ContactView(FormView):
             'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
         }    
         return render(request, self.template_name, context)
+    
+class CardDatabaseView(FormView):
+    template_name = "card_search.html"
+    form_class = CustomCardSearchForm
+
+    def get(self, request):
+        form = self.form_class()
+        if (form.is_valid()):
+            name = form.cleaned_data['name']
+            rarity = form.cleaned_data['rarity']
+            set = form.cleaned_data['set']
+            cardType = form.cleaned_data['cardType']
+            difficulty = form.cleaned_data['difficulty']
+            control = form.cleaned_data['control']
+            blockZone = form.cleaned_data['blockZone']
+            blockModifier = form.cleaned_data['blockModifier']
+            speed = form.cleaned_data['speed']
+            attackZone = form.cleaned_data['attackZone']
+            damage = form.cleaned_data['damage']
+            symbols = form.cleaned_data['symbols']
+            cardText = form.cleaned_data['cardText']
+            return render(request, self.template_name, {'form': form, 'name': name, 'rarity': rarity, 'set': set, 'cardType': cardType, 'difficulty': difficulty, 'control': control, 'blockZone': blockZone, 'blockModifier': blockModifier, 'speed': speed, 'attackZone': attackZone, 'damage': damage, 'symbols': symbols, 'cardText': cardText})
+
+class DeckBuilderView():
+    pass
