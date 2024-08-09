@@ -17,17 +17,14 @@ class ContactForm(forms.Form):
 
 class CustomSignUpForm(UserCreationForm):
     username = forms.CharField(
-        label="Username",
         help_text="150 characters or fewer. Letters, digits and @/./+/-/_ only.",
         widget=forms.TextInput(attrs={"placeholder": "Username", "class": "form-control"})
     )
     password1 = forms.CharField(
-        label="Password",
-        help_text="Your password can't be too similar to your other personal information. Your password must contain at least 8 characters. Your password can't be a commonly used password. Your password can't be entirely numeric.",
+        help_text="Your password can't be too similar to your username. Your password must contain at least 8 characters. Your password can't be a commonly used password. Your password can't be entirely numeric.",
         widget=forms.PasswordInput(attrs={"placeholder": "Password", "class": "form-control"})
     )
     password2 = forms.CharField(
-        label="Confirm password",
         help_text="Enter the same password as before, for verification.",
         widget=forms.PasswordInput(attrs={"placeholder": "Confirm password", "class": "form-control"})
     )
@@ -35,3 +32,13 @@ class CustomSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
+
+class CustomLoginForm(forms.Form):
+    username = forms.CharField(
+        label="Username",
+        widget=forms.TextInput(attrs={"placeholder": "Username", "class": "form-control"})
+    )
+    password = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(attrs={"placeholder": "Password", "class": "form-control"})
+    )

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from django.views import View
-from django.contrib.auth import login, logout
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from .forms import *
 from django.conf import settings
@@ -40,10 +40,29 @@ class registerView(View):
             return redirect('home')
         return render(request, self.template_name, {'form': form})
     
-class CustomLoginView(auth_views.LoginView):
-    template_name = 'registration/login.html'
+class CustomLoginView(LoginView):
+    form_class = CustomLoginForm
+    template_name = "registration/login.html"
+    
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+    
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You have successfully logged in.")
+                return redirect('home')
+            else:
+                messages.error(request, "Invalid username or password.")
+        return render(request, self.template_name, {'form': form})
 
-class CustomLogoutView(auth_views.LogoutView):
+class CustomLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         logout(request)
         messages.success(request, "You have successfully logged out.")
