@@ -122,23 +122,30 @@ class CardDatabaseView(FormView):
     template_name = "card_search.html"
     form_class = CustomCardSearchForm
 
-    def get(self, request):
-        form = self.form_class()
-        if (form.is_valid()):
-            name = form.cleaned_data['name']
-            rarity = form.cleaned_data['rarity']
-            set = form.cleaned_data['set']
-            cardType = form.cleaned_data['cardType']
-            difficulty = form.cleaned_data['difficulty']
-            control = form.cleaned_data['control']
-            blockZone = form.cleaned_data['blockZone']
-            blockModifier = form.cleaned_data['blockModifier']
-            speed = form.cleaned_data['speed']
-            attackZone = form.cleaned_data['attackZone']
-            damage = form.cleaned_data['damage']
-            symbols = form.cleaned_data['symbols']
-            cardText = form.cleaned_data['cardText']
-            return render(request, self.template_name, {'form': form, 'name': name, 'rarity': rarity, 'set': set, 'cardType': cardType, 'difficulty': difficulty, 'control': control, 'blockZone': blockZone, 'blockModifier': blockModifier, 'speed': speed, 'attackZone': attackZone, 'damage': damage, 'symbols': symbols, 'cardText': cardText})
+    def form_valid(self, form):
+        name = form.cleaned_data['name']
+        rarity = form.cleaned_data['rarity']
+        set = form.cleaned_data['set']
+        cardType = form.cleaned_data['cardType']
+        difficulty = form.cleaned_data['difficulty']
+        control = form.cleaned_data['control']
+        blockZone = form.cleaned_data['blockZone']
+        blockModifier = form.cleaned_data['blockModifier']
+        speed = form.cleaned_data['speed']
+        attackZone = form.cleaned_data['attackZone']
+        damage = form.cleaned_data['damage']
+        symbols = form.cleaned_data['symbols']
+        cardText = form.cleaned_data['cardText']
+        keywords = form.cleaned_data['keywords']
+
+        card = self.search_card(name, rarity, set, cardType, difficulty, control, blockZone, blockModifier, speed, attackZone, damage, symbols, cardText, keywords)
+
+        context = self.get_context_data()
+        context['card'] = card
+        return self.render_to_response(context)
+    
+    def search_card(self, name, rarity, set, cardType, difficulty, control, blockZone, blockModifier, speed, attackZone, damage, symbols, cardText, keywords):
+        settings.collection.find({'name': name, 'rarity': rarity, 'set': set, 'cardType': cardType, 'difficulty': difficulty, 'control': control, 'blockZone': blockZone, 'blockModifier': blockModifier, 'speed': speed, 'attackZone': attackZone, 'damage': damage, 'symbols': symbols, 'cardText': cardText, 'keywords': keywords})
 
 class DeckBuilderView():
     pass
