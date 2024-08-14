@@ -111,10 +111,11 @@ DATABASES = {
 # MongoDB connection
 MongodbConnectionString = os.getenv('connection_string')
 DBname = os.getenv('database_name')
+collection_name = os.getenv('collection_name')
 
 client = MongoClient(MongodbConnectionString)
 db = client[DBname]
-collection = db['cards']
+collection = db[collection_name]
 
 
 # Password validation
