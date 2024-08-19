@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from django.views import View
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
@@ -187,3 +188,37 @@ class CardDatabaseView(FormView):
 
 class DeckBuilderView():
     pass
+
+
+class AddCardView(FormView):
+    template_name = "add_card.html"
+    form_class = AdminAddCardForm
+    success_url = '/admin/add_card'
+
+    def test_func(self):
+        return self.request.user.is_superuser
+    
+    def no_permission(self):
+        return redirect('home')
+
+    def form_valid(self, form):
+        card_data = {
+            'name': form.cleaned_data.get('name'),
+            'image': form.cleaned_data.get('image'),
+            'rarity': form.cleaned_data.get('rarity'),
+            'set': form.cleaned_data.get('set'),
+            'cardType': form.cleaned_data.get('cardType'),
+            'symbol': form.cleaned_data.get('symbol'),
+            'keywords': form.cleaned_data.get('keywords'),
+            'control': form.cleaned_data.get('control'),
+            'difficulty': form.cleaned_data.get('difficulty'),
+            'blockZone': form.cleaned_data.get('blockZone'),
+            'blockModifier': form.cleaned_data.get('blockModifier'),
+            'attackZone': form.cleaned_data.get('attackZone'),
+            'speed': form.cleaned_data.get('speed'),
+            'damage': form.cleaned_data.get('damage'),
+            'cardText': form.cleaned_data.get('cardText')
+        }
+        settings.COLLECTION.insert_one(card_data)
+
+        return super().form_valid(form)

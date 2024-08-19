@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('search/', CardDatabaseView.as_view(), name='search'),
+    path('admin/add_card/', AddCardView.as_view(), name='add_card'),
 ]
