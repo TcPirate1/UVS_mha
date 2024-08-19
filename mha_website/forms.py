@@ -45,6 +45,7 @@ class CustomLoginForm(forms.Form):
 
 class CustomCardSearchForm(forms.Form):
     name = forms.CharField(
+        required=False,
         label="Card Name",
         widget=forms.TextInput(attrs={"placeholder": "Card Name", "class": "form-control"})
     )
@@ -58,9 +59,10 @@ class CustomCardSearchForm(forms.Form):
         ]
     
     rarity = forms.MultipleChoiceField(
+        required=False,
         label="Rarity",
         choices=rarityChoices,
-        widget=forms.MultipleChoiceField(attrs={"class": "form-check-input"})
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
     setChoices = [
@@ -81,6 +83,7 @@ class CustomCardSearchForm(forms.Form):
         ]
     
     set = forms.ChoiceField(
+        required=False,
         label="Set",
         choices=setChoices,
         widget=forms.Select(attrs={"class": "form-select"})
@@ -96,6 +99,7 @@ class CustomCardSearchForm(forms.Form):
     ]
 
     cardType = forms.MultipleChoiceField(
+        required=False,
         label="Card Type",
         choices=cardTypeChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
@@ -116,6 +120,7 @@ class CustomCardSearchForm(forms.Form):
         ]
     
     symbol = forms.MultipleChoiceField(
+        required=False,
         label="Symbol",
         choices=symbolChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
@@ -133,6 +138,7 @@ class CustomCardSearchForm(forms.Form):
         ]
     
     keywords = forms.MultipleChoiceField(
+        required=False,
         label="Keywords",
         choices=keywordChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
@@ -147,12 +153,14 @@ class CustomCardSearchForm(forms.Form):
     ]
 
     control = forms.MultipleChoiceField(
+        required=False,
         label="Control",
         choices=controlChoice,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
     difficulty = forms.IntegerField(
+        required=False,
         label="Difficulty",
         widget=forms.NumberInput(attrs={"placeholder": "Difficulty", "class": "form-control"})
     )
@@ -165,33 +173,39 @@ class CustomCardSearchForm(forms.Form):
     ]
 
     blockZone = forms.MultipleChoiceField(
+        required=False,
         label="Block Zone",
         choices=blockZoneChoice,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
     blockModifier = forms.IntegerField(
+        required=False,
         label="Block Modifier",
         widget=forms.NumberInput(attrs={"placeholder": "Block Modifier", "class": "form-control"})
     )
 
     attackZone = forms.MultipleChoiceField(
+        required=False,
         label="Attack Zone",
         choices=blockZoneChoice,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
     speed = forms.IntegerField(
+        required=False,
         label="Speed",
         widget=forms.NumberInput(attrs={"placeholder": "Speed", "class": "form-control"})
     )
 
     damage = forms.IntegerField(
+        required=False,
         label="Damage",
         widget=forms.NumberInput(attrs={"placeholder": "Damage", "class": "form-control"})
     )
 
     cardText = forms.CharField(
+        required=False,
         label="Card Text",
         widget=forms.TextInput(attrs={"placeholder": "Card Text", "class": "form-control"})
     )
