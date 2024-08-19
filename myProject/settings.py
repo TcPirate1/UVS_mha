@@ -109,13 +109,13 @@ DATABASES = {
 }
 
 # MongoDB connection
-MongodbConnectionString = os.getenv('connection_string')
-DBname = os.getenv('database_name')
-collection_name = os.getenv('collection_name')
+MONGODBCONNECTIONSTRING = os.getenv('connection_string')
+DBNAME = os.getenv('database_name')
+COLLECTION_NAME = os.getenv('collection_name')
 
-client = MongoClient(MongodbConnectionString)
-db = client[DBname]
-collection = db[collection_name]
+CLIENT = MongoClient(MONGODBCONNECTIONSTRING)
+DB = CLIENT[DBNAME]
+COLLECTION = DB[COLLECTION_NAME]
 
 
 # Password validation
