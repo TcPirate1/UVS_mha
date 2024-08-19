@@ -8,6 +8,7 @@ from .forms import *
 from django.conf import settings
 from django.core.mail import send_mail
 import requests
+from .models import Card
 
 # Template view pages
 class homeView(TemplateView):
@@ -117,3 +118,72 @@ class ContactView(FormView):
             'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
         }    
         return render(request, self.template_name, context)
+    
+class CardDatabaseView(FormView):
+    template_name = "card_search.html"
+    form_class = CustomCardSearchForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        context = self.get_context_data(form = form)
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        results = []
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            rarity = form.cleaned_data.get('rarity')
+            set = form.cleaned_data.get('set')
+            cardType = form.cleaned_data.get('cardType')
+            symbol = form.cleaned_data.get('symbol')
+            keywords = form.cleaned_data.get('keywords')
+            control = form.cleaned_data.get('control')
+            difficulty = form.cleaned_data.get('difficulty')
+            blockZone = form.cleaned_data.get('blockZone')
+            blockModifier = form.cleaned_data.get('blockModifier')
+            attackZone = form.cleaned_data.get('attackZone')
+            speed = form.cleaned_data.get('speed')
+            damage = form.cleaned_data.get('damage')
+            cardText = form.cleaned_data.get('cardText')
+            
+            query = {}
+            if name:
+                query['name'] = {'$regex': name, '$options': 'i'}
+            if rarity:
+                query['rarity'] = {'$in': rarity}
+            if set:
+                query['set'] = set
+            if cardType:
+                query['cardType'] = {'$in': cardType}
+            if symbol:
+                query['symbol'] = {'$in': symbol}
+            if keywords:
+                query['keywords'] = {'$in': keywords}
+            if control:
+                query['control'] = {'$in': control}
+            if difficulty:
+                query['difficulty'] = difficulty
+            if blockZone:
+                query['blockZone'] = {'$in': blockZone}
+            if blockModifier:
+                query['blockModifier'] = blockModifier
+            if attackZone:
+                query['attackZone'] = {'$in': attackZone}
+            if speed:
+                query['speed'] = speed
+            if damage:
+                query['damage'] = damage
+            if cardText:
+                query['cardText'] = {'$in': cardText, '$options': 'i'}
+
+            results = list(settings.COLLECTION.find(query))
+
+        context = self.get_context_data()
+        context['form'] = form
+        context['results'] = results
+
+        return self.render_to_response(context)
+
+class DeckBuilderView():
+    pass
