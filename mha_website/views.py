@@ -9,7 +9,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 import requests
 from .models import Card
-from django.db.models import Q
 
 # Template view pages
 class homeView(TemplateView):
@@ -131,24 +130,24 @@ class CardDatabaseView(FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        results = None
+        results = []
         if form.is_valid():
             name = form.cleaned_data.get('name')
-            rarity = form.cleaned_data('rarity')
-            set = form.cleaned_data('set')
-            cardType = form.cleaned_data('cardType')
-            symbol = form.cleaned_data('symbol')
-            keywords = form.cleaned_data('keywords')
-            control = form.cleaned_data('control')
-            difficulty = form.cleaned_data('difficulty')
-            blockZone = form.cleaned_data('blockZone')
-            blockModifier = form.cleaned_data('blockModifier')
-            attackZone = form.cleaned_data('attackZone')
-            speed = form.cleaned_data('speed')
-            damage = form.cleaned_data('damage')
-            cardText = form.cleaned_data('cardText')
+            rarity = form.cleaned_data.get('rarity')
+            set = form.cleaned_data.get('set')
+            cardType = form.cleaned_data.get('cardType')
+            symbol = form.cleaned_data.get('symbol')
+            keywords = form.cleaned_data.get('keywords')
+            control = form.cleaned_data.get('control')
+            difficulty = form.cleaned_data.get('difficulty')
+            blockZone = form.cleaned_data.get('blockZone')
+            blockModifier = form.cleaned_data.get('blockModifier')
+            attackZone = form.cleaned_data.get('attackZone')
+            speed = form.cleaned_data.get('speed')
+            damage = form.cleaned_data.get('damage')
+            cardText = form.cleaned_data.get('cardText')
             
-            query = Q()
+            query = {}
             if name:
                 query['name'] = {'$regex': name, '$options': 'i'}
             if rarity:
@@ -176,9 +175,9 @@ class CardDatabaseView(FormView):
             if damage:
                 query['damage'] = damage
             if cardText:
-                query['cardText'] = {'$in': cardText}
+                query['cardText'] = {'$in': cardText, '$options': 'i'}
 
-            results = list(settings.collection.find(query))
+            results = list(settings.COLLECTION.find(query))
 
         context = self.get_context_data()
         context['form'] = form
