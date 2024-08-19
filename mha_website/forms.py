@@ -2,6 +2,7 @@ from django import forms
 from django_recaptcha.fields import ReCaptchaV3
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .choices import *
 
 class ContactForm(forms.Form):
     email = forms.EmailField(
@@ -49,14 +50,6 @@ class CustomCardSearchForm(forms.Form):
         label="Card Name",
         widget=forms.TextInput(attrs={"placeholder": "Card Name", "class": "form-control"})
     )
-    rarityChoices = [
-        ("Common", "Common"),
-        ("Uncommon", "Uncommon"),
-        ("Rare", "Rare"),
-        ("SE", "SE"),
-        ("Super Rare", "Super Rare"),
-        ("Ultra Rare", "Ultra Rare"),
-        ]
     
     rarity = forms.MultipleChoiceField(
         required=False,
@@ -64,23 +57,6 @@ class CustomCardSearchForm(forms.Form):
         choices=rarityChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
-
-    setChoices = [
-        ("Base Set", "Base Set"),
-        ("Promo Set", "Promo Set"),
-        ("Expansion Set", "Expansion Set"),
-        ("Starter Set", "Starter Set"),
-        ("Booster Set", "Booster Set"),
-        ("Special Edition Set", "Special Edition Set"),
-        ("Crimson Rampage", "Crimson Rampage"),
-        ("Heroes Clash", "Heroes Clash"),
-        ("League of Villans", "League of Villans"),
-        ("Undaunted Raid", "Undaunted Raid"),
-        ("Jet Burn", "Jet Burn"),
-        ("Girl Power", "Girl Power"),
-        ("DLC", "DLC"),
-        ("Other", "Other"),
-        ]
     
     set = forms.ChoiceField(
         required=False,
@@ -89,35 +65,12 @@ class CustomCardSearchForm(forms.Form):
         widget=forms.Select(attrs={"class": "form-select"})
     )
 
-    cardTypeChoices = [
-        ("Character", "Character"),
-        ("Action", "Action"),
-        ("Asset", "Asset"),
-        ("Attack", "Attack"),
-        ("Foundation", "Foundation"),
-        ("Backup", "Backup"),
-    ]
-
     cardType = forms.MultipleChoiceField(
         required=False,
         label="Card Type",
         choices=cardTypeChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
-
-    symbolChoices = [
-        ("All", "All"),
-        ("Air", "Air"),
-        ("Earth", "Earth"),
-        ("Fire", "Fire"),
-        ("Life", "Life"),
-        ("Death", "Death"),
-        ("Good", "Good"),
-        ("Evil", "Evil"),
-        ("Order", "Order"),
-        ("Chaos", "Chaos"),
-        ("Infinity", "Infinity"),
-        ]
     
     symbol = forms.MultipleChoiceField(
         required=False,
@@ -125,17 +78,6 @@ class CustomCardSearchForm(forms.Form):
         choices=symbolChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
-
-    keywordChoices = [
-        ("All", "All"),
-        ("Combo", "Combo"),
-        ("Enhance", "Enhance"),
-        ("Guard", "Guard"),
-        ("Power Up", "Power Up"),
-        ("Stun", "Stun"),
-        ("Throw", "Throw"),
-        ("Unique", "Unique"),
-        ]
     
     keywords = forms.MultipleChoiceField(
         required=False,
@@ -143,14 +85,6 @@ class CustomCardSearchForm(forms.Form):
         choices=keywordChoices,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
-    controlChoice = [
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5),
-        (6, 6),
-    ]
 
     control = forms.MultipleChoiceField(
         required=False,
@@ -165,17 +99,10 @@ class CustomCardSearchForm(forms.Form):
         widget=forms.NumberInput(attrs={"placeholder": "Difficulty", "class": "form-control"})
     )
 
-    blockZoneChoice = [
-        ("High", "High"),
-        ("Mid", "Mid"),
-        ("Low", "Low"),
-        # Reused for Attack Zone
-    ]
-
     blockZone = forms.MultipleChoiceField(
         required=False,
         label="Block Zone",
-        choices=blockZoneChoice,
+        choices=zoneChoice,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
@@ -188,7 +115,7 @@ class CustomCardSearchForm(forms.Form):
     attackZone = forms.MultipleChoiceField(
         required=False,
         label="Attack Zone",
-        choices=blockZoneChoice,
+        choices=zoneChoice,
         widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
     )
 
@@ -206,6 +133,105 @@ class CustomCardSearchForm(forms.Form):
 
     cardText = forms.CharField(
         required=False,
+        label="Card Text",
+        widget=forms.TextInput(attrs={"placeholder": "Card Text", "class": "form-control"})
+    )
+
+class AdminAddCardForm(forms.Form):
+    name = forms.CharField(
+        required=True,
+        label="Card Name",
+        widget=forms.TextInput(attrs={"placeholder": "Card Name", "class": "form-control"})
+    )
+
+    image = forms.URLField(
+        required=True,
+        label="Image URL",
+        widget=forms.URLInput(attrs={"placeholder": "Insert URL here", "class": "form-control"})
+    )
+    
+    rarity = forms.MultipleChoiceField(
+        required=True,
+        label="Rarity",
+        choices=rarityChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+    
+    set = forms.ChoiceField(
+        required=True,
+        label="Set",
+        choices=setChoices,
+        widget=forms.Select(attrs={"class": "form-select"})
+    )
+
+    cardType = forms.MultipleChoiceField(
+        required=True,
+        label="Card Type",
+        choices=cardTypeChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+    
+    symbol = forms.MultipleChoiceField(
+        required=True,
+        label="Symbol",
+        choices=symbolChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+    
+    keywords = forms.MultipleChoiceField(
+        required=True,
+        label="Keywords",
+        choices=keywordChoices,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    control = forms.MultipleChoiceField(
+        required=True,
+        label="Control",
+        choices=controlChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    difficulty = forms.IntegerField(
+        required=True,
+        label="Difficulty",
+        widget=forms.NumberInput(attrs={"placeholder": "Difficulty", "class": "form-control"})
+    )
+
+    blockZone = forms.MultipleChoiceField(
+        required=True,
+        label="Block Zone",
+        choices=zoneChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    blockModifier = forms.IntegerField(
+        required=True,
+        label="Block Modifier",
+        widget=forms.NumberInput(attrs={"placeholder": "Block Modifier", "class": "form-control"})
+    )
+
+    attackZone = forms.MultipleChoiceField(
+        required=True,
+        label="Attack Zone",
+        choices=zoneChoice,
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
+    )
+
+    speed = forms.IntegerField(
+        required=True,
+        label="Speed",
+        widget=forms.NumberInput(attrs={"placeholder": "Speed", "class": "form-control"})
+    )
+
+    damage = forms.IntegerField(
+        required=True,
+        label="Damage",
+        widget=forms.NumberInput(attrs={"placeholder": "Damage", "class": "form-control"})
+    )
+
+    cardText = forms.CharField(
+        required=True,
         label="Card Text",
         widget=forms.TextInput(attrs={"placeholder": "Card Text", "class": "form-control"})
     )

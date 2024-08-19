@@ -4,7 +4,6 @@ from django.db import models
 
 class Card(models.Model):
     def __init__(self, name, rarity, set, cardType, difficulty, control, blockZone, blockModifier, speed, attackZone, damage, symbols, cardText, keywords):
-        self.image = models.URLField()
         self.name = name
         self.rarity = rarity
         self.set = set
