@@ -76,6 +76,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item d-none d-lg-block me-3">
+              {{ user.get_username }}
               <a class="btn btn-outline-light" href="{% url 'logout' %}">
               Logout</a
               >
