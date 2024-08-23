@@ -190,7 +190,7 @@ class DeckBuilderView():
     pass
 
 
-class AddCardView(FormView):
+class AddCardView(UserPassesTestMixin ,FormView):
     template_name = "add_card.html"
     form_class = AdminAddCardForm
     success_url = '/admin/add_card'
@@ -198,7 +198,7 @@ class AddCardView(FormView):
     def test_func(self):
         return self.request.user.is_superuser
     
-    def no_permission(self):
+    def handle_no_permission(self):
         return redirect('home')
 
     def form_valid(self, form):
