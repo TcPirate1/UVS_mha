@@ -6,7 +6,7 @@ Django==5.1
 django-cloudinary-storage==0.3.0
 django-recaptcha==4.0.0
 dnspython==2.6.1
-idna==3.7
+idna==3.8
 pillow==10.4.0
 pymongo==4.8.0
 python-dotenv==1.0.1
