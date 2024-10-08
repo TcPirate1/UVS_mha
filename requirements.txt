@@ -2,7 +2,7 @@ asgiref==3.8.1
 certifi==2024.7.4
 charset-normalizer==3.3.2
 cloudinary==1.41.0
-Django==5.1
+Django==5.1.1
 django-cloudinary-storage==0.3.0
 django-recaptcha==4.0.0
 dnspython==2.6.1
